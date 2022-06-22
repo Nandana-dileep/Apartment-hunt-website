@@ -22,4 +22,5 @@
 | Video Link  |      link_to_video     |
 
 ## Project Summary
-Please put your project summary here
+  Our application will be used to compile apartments and dorms for students looking for lodging at UIUC. There will be 2 tables, offers, and tracked offers. The Offers table will have attributes including the name of the person providing the offer, location, rent cost, start date, end date, cancel date, whether it can be subleased, and what utilities are provided. The utilities will be gas, electricity, water, and internet. The utilities will be listed as their costs, where they are 0 if they are provided with the lease, equal to the cost if they are provided separately, and NULL if you have to provide your own. The Tracked Offers table will have a foreign key referencing the Offers table’s ID, and will have additional attributes related to communication to the offer provider.
+  Another table or function might be required to calculate distances from important locations, like the engineering quad or undergraduate library.
