@@ -1,0 +1,24 @@
+Entities
+
+Providers(ProviderId:INT [PK], name:VARCHAR(50) NOT NULL, email:VARCHAR(50) NOT NULL, phone INT NOT NULL, password VARCHAR(100) NOT NULL)
+
+Buildings(BuildingId:INT [PK], Address:VARCHAR(256) NOT NULL, bikeRacks:INT, parkingSpaces:INT)
+
+Units(UnitId:INT [PK], PostedBy:INT [FK to Providers.ProviderId], UnitOf:INT [FK to Buildings.BuildingId], moveIn:DATE, moveOut:DATE, rentCost:DECIMAL(10,2), canSublease:BOOL, gasUtility:DECIMAL(10,2), electricityUtility:DECIMAL(10,2), waterUtility:DECIMAL(10,2), internetUtility:DECIMAL(10,2), unitNumber:INT)
+
+Users(UserId:INT [PK], name:VARCHAR(50) NOT NULL, email:VARCHAR(50) NOT NULL, phone INT NOT NULL, password VARCHAR(100) NOT NULL)
+
+Ratings(RatingId:INT [PK], RatedBuilding:INT [FK to Buildings.BuildingId], RatedBy:INT [FK to Users.UserId], travelTimeMinutes:INT, travelRating:INT, noiseRating:INT, airRating:INT, furnishingRating:INT, spaceRating:INT, creationDate:DATE, comments:VARCHAR(1000))
+
+Relationships
+
+Tracking(TrackingId:INT [PK], trackedBy:INT [FK to Users.UserId], trackedUnit:INT [FK to Units.UnitId], startDate:DATE NOT NULL, endDate:DATE, accepted:BOOL)
+
+
+Assumptions
+
+Users should only create Ratings for buildings with units that they had previously been accepted to.
+
+Users can create as many ratings as they want for 1 building, but only the most recent is considered when calculating the average ratings.
+
+Units aren't the rooms themselves, but the offers for them. Two different units might refer to the same physical lodging, but this would only happen for different times, like leasing for fall of 2022 or fall of 2023.
