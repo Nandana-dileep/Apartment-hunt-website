@@ -49,5 +49,5 @@ def create():
 @app.route("/")
 def homepage():
     """ returns rendered homepage """
-    items = db_helper.fetch_todo()
-    return render_template("index.html", items=items)
+    currTuples = db_helper.fetch_todo()
+    return render_template("index.html", items1=currTuples[0], items2=currTuples[1])

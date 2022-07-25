@@ -19,8 +19,8 @@
     <body>
 
     <main role="main" class="container extra-bottom">
-      <h1 class="mt-5">TODO List Demo App</h1>
-      <p><mark>Do it now.</mark></p>
+      <h1 class="mt-5">Apartment Tracking App</h1>
+      <!--<p><mark></mark></p> this was in the base code, adding text below the title-->
     </main>
     
 
@@ -28,7 +28,12 @@
         
         <!-- Button trigger modal -->
         <div style="text-align: right;">
-        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Add Task</button>
+        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="?????">Search by Address</button>
+        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Show Tracking Tickets</button>
+        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Add Tracking Ticket</button>
+        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Edit Tracking Ticket</button>
+        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Delete Tracking Ticket</button>
+        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Ratings by Address</button>
         </div>
 
         
@@ -61,33 +66,18 @@
     <table class="table">
         <thead>
         <tr>
-            <th class="task-id">#</th>
-            <th class="task">Task Name</th>
-            <th class="status">Status</th>
-            <th class="update">Edit</th>
-            <th class="update">Remove</th>
+            {% for item in items1 %}
+                <th class="task-id">{{item}}</th>
+            {% endfor %}
         </tr>
         </thead>
 
         <tbody>
-        {% for item in items %}
+        {% for item in items2 %}
             <tr>
-                <td>{{item.id}}</td>
-                <td>{{item.task}}</td>
-
-                {% if item.status == "In Progress" %}
-                    <td><button type="button" class="btn btn-outline-warning btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
-                {%endif%}
-                {% if item.status == "Todo" %}
-                    <td><button type="button" class="btn btn-outline-secondary btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
-                {%endif%}
-                {% if item.status == "Complete" %}
-                    <td><button type="button" class="btn btn-outline-success btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
-                {%endif%}
-                
-                <td><button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="{{item.id}}" data-content="{{item.task}}"><i class="fa fa-pen fa-1" aria-hidden="true"></i></button></td>
-
-                <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.id}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
+                {% for field in item %}
+                    <td>{{field}}</td>
+                {% endfor %}
             </tr>
         {% endfor %}
         

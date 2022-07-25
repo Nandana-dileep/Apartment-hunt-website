@@ -7,20 +7,16 @@ def fetch_todo() -> dict:
     Returns:
         A list of dictionaries
     """
+    # this is how I created the currTuples, but I am not sure how I will get it to start if it doesn't have currTuples to start with
+    # conn = db.connect()
+    # query_results = conn.execute("SELECT u.id AS offerId, p.email, u.rentCost, u.moveIn, b.address, b.city, b.state, b.zip FROM Units u JOIN Buildings b ON u.unitOf=b.id JOIN Providers p ON u.postedBy=p.id WHERE NOT EXISTS (SELECT * FROM Tracking t WHERE t.trackedUnit = u.id AND t.accepted>0);").fetchall()
+    # conn.close()
+    # currAttr = ["Offer Id", "Contact Email", "Rent", "Move-in Date", "Address", "City", "State", "ZIP"]
+    # currTuples = [currAttr, []] #the currtuples return object is 2 arrays, first array is the names of the attributes, second array is the data.
+    # for result in query_results:
+    #     currTuples[1].append(result)
 
-    conn = db.connect()
-    query_results = conn.execute("Select * from tasks;").fetchall()
-    conn.close()
-    todo_list = []
-    for result in query_results:
-        item = {
-            "id": result[0],
-            "task": result[1],
-            "status": result[2]
-        }
-        todo_list.append(item)
-
-    return todo_list
+    return currTuples
 
 
 def update_task_entry(task_id: int, text: str) -> None:
