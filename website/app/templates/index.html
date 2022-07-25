@@ -28,7 +28,10 @@
         
         <!-- Button trigger modal. I think data-source changes the thing at the top? -->
         <div style="text-align: right;">
-        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="?????">Search by Address</button>
+            <!-- class will change the button type. the default doesn't have -sm at the end, so sm is the smaller version-->
+            <!-- data-bs-toggle and data-bs-target seem to make the buttons not create a new window if I alter the text.-->
+            <!-- data-bs-target defines the target, in this case task-modal in the block below.-->
+        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#test-modal" data-source="?????">Search by Address</button>
         <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Show Tracking Tickets</button>
         <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Add Tracking Ticket</button>
         <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Edit Tracking Ticket</button>
@@ -51,11 +54,11 @@
                     <input type="text" class="form-control" placeholder="Description of task" aria-label="task-name" aria-describedby="basic-addon1">
                 </div>
                 <!-- this block-->
-                <div class="input-group mb-2">
+                <!--<div class="input-group mb-3">
                     <span class="input-group-text" id="task-form-display">Task</span>
                     <input type="text" class="form-control" placeholder="Description of task2" aria-label="task-name" aria-describedby="basic-addon1">
                 </div>
-                <!-- Each one will add an input field. How can I get multiple types of inputs?-->
+                Each one will add an input field. How can I get multiple types of inputs?-->
 
             </div>
             <!-- this block-->
@@ -68,9 +71,35 @@
         </div>
         </div>
 
+
+        <div class="modal fade" id="test-modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Label">Search for Offers by Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="task-form-display">Search</span>
+                    <input type="text" class="form-control" placeholder="Input terms in address" aria-label="search-text" aria-describedby="basic-addon1">
+                </div>
+                
+            </div>
+            <!-- this block-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="unit-search" type="button" class="btn btn-primary">Search</button>
+            </div>
+            <!-- will create the buttons that submit the inputted data or close the window-->
+            </div>
+        </div>
+        </div>
+
     </div>
 
-    <!--Todo Table-->
+    <!--This takes the object for current tuples and displays it on the website-->
     <div class="container table-responsive">          
     <table class="table">
         <thead>

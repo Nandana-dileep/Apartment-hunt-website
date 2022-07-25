@@ -6,13 +6,14 @@ from app import db
 #This block is the basic way for the functions to take their query outputs and display
 #   them on the home page.
 
-conn = db.connect()
-query_results = conn.execute("SELECT u.id AS offerId, p.email, u.rentCost, u.moveIn, b.address, b.city, b.state, b.zip FROM Units u JOIN Buildings b ON u.unitOf=b.id JOIN Providers p ON u.postedBy=p.id WHERE NOT EXISTS (SELECT * FROM Tracking t WHERE t.trackedUnit = u.id AND t.accepted>0);").fetchall()
-conn.close()
-currAttr = ["Offer Id", "Contact Email", "Rent", "Move-in Date", "Address", "City", "State", "ZIP"]
-currTuples = [currAttr, []] #the currtuples return object is 2 arrays, first array is the names of the attributes, second array is the data.
-for result in query_results:
-    currTuples[1].append(result)
+# conn = db.connect()
+# query_results = conn.execute("SELECT u.id AS offerId, p.email, u.rentCost, u.moveIn, b.address, b.city, b.state, b.zip FROM Units u JOIN Buildings b ON u.unitOf=b.id JOIN Providers p ON u.postedBy=p.id WHERE NOT EXISTS (SELECT * FROM Tracking t WHERE t.trackedUnit = u.id AND t.accepted>0);").fetchall()
+# conn.close()
+# currAttr = ["Offer Id", "Contact Email", "Rent", "Move-in Date", "Address", "City", "State", "ZIP"]
+# currTuples = [currAttr, []] #the currtuples return object is 2 arrays, first array is the names of the attributes, second array is the data.
+# for result in query_results:
+#     currTuples[1].append(result)
+
 
 def fetch_todo() -> dict:
     """Reads all tasks listed in the todo table
@@ -21,15 +22,28 @@ def fetch_todo() -> dict:
         A list of dictionaries
     """
     # this is how I created the currTuples, but I am not sure how I will get it to start if it doesn't have currTuples to start with
-    # conn = db.connect()
-    # query_results = conn.execute("SELECT u.id AS offerId, p.email, u.rentCost, u.moveIn, b.address, b.city, b.state, b.zip FROM Units u JOIN Buildings b ON u.unitOf=b.id JOIN Providers p ON u.postedBy=p.id WHERE NOT EXISTS (SELECT * FROM Tracking t WHERE t.trackedUnit = u.id AND t.accepted>0);").fetchall()
-    # conn.close()
-    # currAttr = ["Offer Id", "Contact Email", "Rent", "Move-in Date", "Address", "City", "State", "ZIP"]
-    # currTuples = [currAttr, []] #the currtuples return object is 2 arrays, first array is the names of the attributes, second array is the data.
-    # for result in query_results:
-    #     currTuples[1].append(result)
-
+    
+    conn = db.connect()
+    query_results = conn.execute("SELECT u.id AS offerId, p.email, u.rentCost, u.moveIn, b.address, b.city, b.state, b.zip FROM Units u JOIN Buildings b ON u.unitOf=b.id JOIN Providers p ON u.postedBy=p.id WHERE NOT EXISTS (SELECT * FROM Tracking t WHERE t.trackedUnit = u.id AND t.accepted>0);").fetchall()
+    conn.close()
+    currAttr = ["Offer Id", "Contact Email", "Rent", "Move-in Date", "Address", "City", "State", "ZIP"]
+    currTuples = [currAttr, []] #the currtuples return object is 2 arrays, first array is the names of the attributes, second array is the data.
+    for result in query_results:
+        currTuples[1].append(result)
     return currTuples
+
+def newtuples_unitsearch(text: str) -> None:
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    conn = db.connect()
+    print("BBBBBBBBBBBBBBBBBBBBBBBBBBB")
+    #query_results = conn.execute("SELECT u.id AS offerId, p.email, u.rentCost, u.moveIn, b.address, b.city, b.state, b.zip FROM Units u JOIN Buildings b ON u.unitOf=b.id JOIN Providers p ON u.postedBy=p.id WHERE b.address LIKE '%{}%' AND NOT EXISTS (SELECT * FROM Tracking t WHERE t.trackedUnit = u.id AND t.accepted>0);".format(text)).fetchall()
+    query_results = conn.execute("SELECT u.id AS offerId, p.email, u.rentCost, u.moveIn, b.address, b.city, b.state, b.zip FROM Units u JOIN Buildings b ON u.unitOf=b.id JOIN Providers p ON u.postedBy=p.id WHERE b.address LIKE '%%coll%%' AND NOT EXISTS (SELECT * FROM Tracking t WHERE t.trackedUnit = u.id AND t.accepted>0);")
+    print("CCCCCCCCCCCCCCCCCCCCCC")
+    conn.close()
+    currAttr = ["Offer Id", "Contact Email", "Rent", "Move-in Date", "Address", "City", "State", "ZIP"]
+    currTuples = [currAttr, []] #the currtuples return object is 2 arrays, first array is the names of the attributes, second array is the data.
+    for result in query_results:
+        currTuples[1].append(result)
 
 
 def update_task_entry(task_id: int, text: str) -> None:
@@ -74,7 +88,7 @@ def insert_new_task(text: str) ->  int:
 
     Returns: The task ID for the inserted entry
     """
-
+    print("WOEIFJOWEIJFOWIEJFOWEIJF")
     conn = db.connect()
     query = 'Insert Into tasks (task, status) VALUES ("{}", "{}");'.format(
         text, "Todo")

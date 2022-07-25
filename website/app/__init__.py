@@ -36,6 +36,7 @@ def init_connection_engine():
             host=os.environ.get('MYSQL_HOST')
         )
     )
+    
 
     return pool
 

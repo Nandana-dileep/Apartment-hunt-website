@@ -22,7 +22,7 @@ $(document).ready(function () {
         }
     })
 
-
+    //I don't understand what this thing does. Even commenting it out doesn't change how the post new task functions
     $('#submit-task').click(function () {
         const tID = $('#task-form-display').attr('taskID');
         console.log($('#task-modal').find('.form-control').val())
@@ -32,6 +32,25 @@ $(document).ready(function () {
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify({
                 'description': $('#task-modal').find('.form-control').val()
+            }),
+            success: function (res) {
+                console.log(res.response)
+                location.reload();
+            },
+            error: function () {
+                console.log('Error');
+            }
+        });
+    });
+
+    $('#unit-search').click(function () {
+        console.log($('#test-modal').find('.form-control').val())
+        $.ajax({
+            type: 'POST',
+            url: '/search',
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify({
+                'description': $('#test-modal').find('.form-control').val()
             }),
             success: function (res) {
                 console.log(res.response)

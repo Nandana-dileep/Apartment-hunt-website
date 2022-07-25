@@ -41,7 +41,10 @@ def update(task_id):
 def create():
     """ recieves post requests to add new task """
     data = request.get_json()
-    db_helper.insert_new_task(data['description'])
+    # db_helper.insert_new_task(data['description'])
+    # result = {'success': True, 'response': 'Done'}
+    # return jsonify(result)
+    db_helper.newtuples_unitsearch(data['description'])
     result = {'success': True, 'response': 'Done'}
     return jsonify(result)
 
@@ -51,3 +54,11 @@ def homepage():
     """ returns rendered homepage """
     currTuples = db_helper.fetch_todo()
     return render_template("index.html", items1=currTuples[0], items2=currTuples[1])
+
+@app.route("/search", methods=['POST'])
+def search():
+    """ recieves post requests to add new task """
+    data = request.get_json()
+    db_helper.newtuples_unitsearch(data['description'])
+    result = {'success': True, 'response': 'Done'}
+    return jsonify(result)
