@@ -26,7 +26,7 @@
 
     <div class="container">    
         
-        <!-- Button trigger modal -->
+        <!-- Button trigger modal. I think data-source changes the thing at the top? -->
         <div style="text-align: right;">
         <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="?????">Search by Address</button>
         <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Show Tracking Tickets</button>
@@ -50,11 +50,20 @@
                     <span class="input-group-text" id="task-form-display">Task</span>
                     <input type="text" class="form-control" placeholder="Description of task" aria-label="task-name" aria-describedby="basic-addon1">
                 </div>
+                <!-- this block-->
+                <div class="input-group mb-2">
+                    <span class="input-group-text" id="task-form-display">Task</span>
+                    <input type="text" class="form-control" placeholder="Description of task2" aria-label="task-name" aria-describedby="basic-addon1">
+                </div>
+                <!-- Each one will add an input field. How can I get multiple types of inputs?-->
+
             </div>
+            <!-- this block-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button id="submit-task" type="button" class="btn btn-primary">Save changes</button>
             </div>
+            <!-- will create the buttons that submit the inputted data or close the window-->
             </div>
         </div>
         </div>
