@@ -15,7 +15,7 @@ from app import db
 #     currTuples[1].append(result)
 
 
-def fetch_todo() -> dict:
+def fetch_query() -> dict:
     """Reads all tasks listed in the todo table
 
     Returns:

@@ -52,7 +52,7 @@ def create():
 @app.route("/")
 def homepage():
     """ returns rendered homepage """
-    currTuples = db_helper.fetch_todo()
+    currTuples = db_helper.fetch_query()
     return render_template("index.html", items1=currTuples[0], items2=currTuples[1])
 
 @app.route("/search", methods=['POST'])
