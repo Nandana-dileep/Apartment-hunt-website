@@ -15,12 +15,7 @@ from app import db
 #     currTuples[1].append(result)
 
 
-def fetch_query() -> dict:
-    """Reads all tasks listed in the todo table
-
-    Returns:
-        A list of dictionaries
-    """
+def fetch_query():
     # this is how I created the currTuples, but I am not sure how I will get it to start if it doesn't have currTuples to start with
     
     conn = db.connect()
@@ -33,17 +28,18 @@ def fetch_query() -> dict:
     return currTuples
 
 def newtuples_unitsearch(text: str) -> None:
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     conn = db.connect()
-    print("BBBBBBBBBBBBBBBBBBBBBBBBBBB")
+    print("Successfully connected to GCP instance")
     #query_results = conn.execute("SELECT u.id AS offerId, p.email, u.rentCost, u.moveIn, b.address, b.city, b.state, b.zip FROM Units u JOIN Buildings b ON u.unitOf=b.id JOIN Providers p ON u.postedBy=p.id WHERE b.address LIKE '%{}%' AND NOT EXISTS (SELECT * FROM Tracking t WHERE t.trackedUnit = u.id AND t.accepted>0);".format(text)).fetchall()
-    query_results = conn.execute("SELECT u.id AS offerId, p.email, u.rentCost, u.moveIn, b.address, b.city, b.state, b.zip FROM Units u JOIN Buildings b ON u.unitOf=b.id JOIN Providers p ON u.postedBy=p.id WHERE b.address LIKE '%%coll%%' AND NOT EXISTS (SELECT * FROM Tracking t WHERE t.trackedUnit = u.id AND t.accepted>0);")
-    print("CCCCCCCCCCCCCCCCCCCCCC")
+    query_results = conn.execute("SELECT u.id AS offerId, p.email, u.rentCost, u.moveIn, b.address, b.city, b.state, b.zip FROM Units u JOIN Buildings b ON u.unitOf=b.id JOIN Providers p ON u.postedBy=p.id WHERE b.address LIKE '=:text' AND NOT EXISTS (SELECT * FROM Tracking t WHERE t.trackedUnit = u.id AND t.accepted>0);")
+    print("Successfully made search query")
     conn.close()
     currAttr = ["Offer Id", "Contact Email", "Rent", "Move-in Date", "Address", "City", "State", "ZIP"]
     currTuples = [currAttr, []] #the currtuples return object is 2 arrays, first array is the names of the attributes, second array is the data.
     for result in query_results:
         currTuples[1].append(result)
+
+    return currTuples
 
 
 def update_task_entry(task_id: int, text: str) -> None:

@@ -3,6 +3,9 @@ from flask import render_template, request, jsonify
 from app import app
 from app import database as db_helper
 
+
+currTuples = None
+
 @app.route("/delete/<int:task_id>", methods=['POST'])
 def delete(task_id):
     """ recieved post requests for entry delete """
@@ -52,13 +55,20 @@ def create():
 @app.route("/")
 def homepage():
     """ returns rendered homepage """
-    currTuples = db_helper.fetch_query()
+    global currTuples 
+    
+    if currTuples == None : 
+        currTuples = db_helper.fetch_query()
     return render_template("index.html", items1=currTuples[0], items2=currTuples[1])
 
 @app.route("/search", methods=['POST'])
 def search():
     """ recieves post requests to add new task """
+    global currTuples
+    
     data = request.get_json()
-    db_helper.newtuples_unitsearch(data['description'])
+    print(f"The query text is : {data['description']}")
+    currTuples = db_helper.newtuples_unitsearch(data['description'])
     result = {'success': True, 'response': 'Done'}
     return jsonify(result)
+    
