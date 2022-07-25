@@ -31,7 +31,13 @@ def newtuples_unitsearch(text: str) -> None:
     conn = db.connect()
     print("Successfully connected to GCP instance")
     #query_results = conn.execute("SELECT u.id AS offerId, p.email, u.rentCost, u.moveIn, b.address, b.city, b.state, b.zip FROM Units u JOIN Buildings b ON u.unitOf=b.id JOIN Providers p ON u.postedBy=p.id WHERE b.address LIKE '%{}%' AND NOT EXISTS (SELECT * FROM Tracking t WHERE t.trackedUnit = u.id AND t.accepted>0);".format(text)).fetchall()
-    query_results = conn.execute("SELECT u.id AS offerId, p.email, u.rentCost, u.moveIn, b.address, b.city, b.state, b.zip FROM Units u JOIN Buildings b ON u.unitOf=b.id JOIN Providers p ON u.postedBy=p.id WHERE b.address LIKE '=:text' AND NOT EXISTS (SELECT * FROM Tracking t WHERE t.trackedUnit = u.id AND t.accepted>0);")
+    query_string = """
+    SELECT u.id AS offerId, p.email, u.rentCost, u.moveIn, b.address, b.city, b.state, b.zip FROM Units u JOIN Buildings b ON u.unitOf=b.id JOIN Providers p ON u.postedBy=p.id 
+    WHERE b.address REGEXP %(input)s AND NOT EXISTS (SELECT * FROM Tracking t WHERE t.trackedUnit = u.id AND t.accepted>0)
+    """
+    params = {"input" : text}
+    
+    query_results = conn.exec_driver_sql(query_string,params)
     print("Successfully made search query")
     conn.close()
     currAttr = ["Offer Id", "Contact Email", "Rent", "Move-in Date", "Address", "City", "State", "ZIP"]

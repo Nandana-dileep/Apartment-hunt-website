@@ -69,6 +69,7 @@ def search():
     data = request.get_json()
     print(f"The query text is : {data['description']}")
     currTuples = db_helper.newtuples_unitsearch(data['description'])
+    print(f"The query results are : {currTuples}")
     result = {'success': True, 'response': 'Done'}
     return jsonify(result)
     
